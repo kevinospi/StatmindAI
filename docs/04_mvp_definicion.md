@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Construir una primera versión funcional de StatMindAI que permita realizar consultas estadísticas y analizar datasets mediante inteligencia artificial.
+Construir una primera versión funcional de Claridata que permita realizar consultas estadísticas y analizar datasets mediante inteligencia artificial.
 
 ## Módulo Aprender Estadística
 

@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-StatMindAI se diseña como una plataforma de análisis estadístico asistida por inteligencia artificial, donde los cálculos estadísticos son realizados por herramientas especializadas y la IA se encarga de interpretar resultados, explicar conceptos y comprender la intención del usuario.
+Claridata se diseña como una plataforma de análisis estadístico asistida por inteligencia artificial, donde los cálculos estadísticos son realizados por herramientas especializadas y la IA se encarga de interpretar resultados, explicar conceptos y comprender la intención del usuario.
 
 ## Componentes Principales
 
