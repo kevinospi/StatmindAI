@@ -1,10 +1,16 @@
 from infraestructura.base_de_datos.modelos.dataset_modelo import DatasetModelo
 from infraestructura.base_de_datos.repositorios.repositorio_dataset import RepositorioDataset
+from aplicacion.validadores.validador_dataset import ValidadorDataset
 
 
 class CrearDataset:
-    def __init__(self, repositorio_dataset: RepositorioDataset) -> None:
+    def __init__(
+        self,
+        repositorio_dataset: RepositorioDataset,
+        validador_dataset: ValidadorDataset,
+    ) -> None:
         self._repositorio_dataset = repositorio_dataset
+        self._validador_dataset = validador_dataset
 
     def ejecutar(
         self,
@@ -18,6 +24,11 @@ class CrearDataset:
         columnas: list | None = None,
         tipos_datos: dict | None = None,
     ) -> DatasetModelo:
+        self._validador_dataset.validar(
+            nombre_archivo=nombre_archivo,
+            tamaño_bytes=tamaño_archivo,
+        )
+
         nuevo_dataset = DatasetModelo(
             usuario_id=usuario_id,
             nombre_archivo=nombre_archivo,

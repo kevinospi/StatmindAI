@@ -24,3 +24,15 @@ class ConversacionNoEncontradaError(ErrorAplicacion):
 
 class TipoConversacionInvalidoError(ErrorAplicacion):
     pass
+
+
+class ExtensionNoSoportadaError(ErrorAplicacion):
+    pass
+
+
+class ArchivoVacioError(ErrorAplicacion):
+    pass
+
+
+class TamañoArchivoExcedidoError(ErrorAplicacion):
+    pass
