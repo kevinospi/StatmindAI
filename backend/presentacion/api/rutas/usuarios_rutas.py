@@ -3,7 +3,9 @@ from fastapi import APIRouter, Depends
 from aplicacion.casos_de_uso.usuarios.registrar_usuario import RegistrarUsuario
 from aplicacion.casos_de_uso.usuarios.obtener_usuario_por_id import ObtenerUsuarioPorId
 from infraestructura.base_de_datos.repositorios.repositorio_usuario import RepositorioUsuario
+from infraestructura.seguridad.gestor_password import GestorPassword
 from presentacion.api.dependencias.dependencias_db import obtener_repositorio_usuario
+from presentacion.api.dependencias.dependencias_seguridad import obtener_gestor_password
 from presentacion.esquemas.usuarios.usuario_esquema import (
     UsuarioRegistroEsquema,
     UsuarioRespuestaEsquema,
@@ -21,12 +23,13 @@ router = APIRouter()
 def registrar_usuario(
     datos: UsuarioRegistroEsquema,
     repositorio_usuario: RepositorioUsuario = Depends(obtener_repositorio_usuario),
+    gestor_password: GestorPassword = Depends(obtener_gestor_password),
 ) -> UsuarioRespuestaEsquema:
-    caso_de_uso = RegistrarUsuario(repositorio_usuario)
+    caso_de_uso = RegistrarUsuario(repositorio_usuario, gestor_password)
     usuario = caso_de_uso.ejecutar(
         nombre=datos.nombre,
         email=datos.email,
-        password_hash=None,
+        password=datos.password,
     )
     return UsuarioRespuestaEsquema.model_validate(usuario)
 

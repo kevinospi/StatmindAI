@@ -1,17 +1,23 @@
 from infraestructura.base_de_datos.modelos.usuario_modelo import UsuarioModelo
 from infraestructura.base_de_datos.repositorios.repositorio_usuario import RepositorioUsuario
+from infraestructura.seguridad.gestor_password import GestorPassword
 from aplicacion.excepciones import EmailYaRegistradoError
 
 
 class RegistrarUsuario:
-    def __init__(self, repositorio_usuario: RepositorioUsuario) -> None:
+    def __init__(
+        self,
+        repositorio_usuario: RepositorioUsuario,
+        gestor_password: GestorPassword,
+    ) -> None:
         self._repositorio_usuario = repositorio_usuario
+        self._gestor_password = gestor_password
 
     def ejecutar(
         self,
         nombre: str,
         email: str,
-        password_hash: str | None,
+        password: str | None,
         proveedor_autenticacion: str = "email",
         google_id: str | None = None,
         foto_perfil: str | None = None,
@@ -19,6 +25,8 @@ class RegistrarUsuario:
         usuario_existente = self._repositorio_usuario.obtener_por_email(email)
         if usuario_existente is not None:
             raise EmailYaRegistradoError(f"El email '{email}' ya está registrado.")
+
+        password_hash = self._gestor_password.hashear(password) if password else None
 
         nuevo_usuario = UsuarioModelo(
             nombre=nombre,

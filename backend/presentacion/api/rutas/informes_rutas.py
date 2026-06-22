@@ -65,9 +65,10 @@ def listar_informes_guardados(
 def obtener_informe(
     informe_id: str,
     repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> InformeRespuestaEsquema:
     caso_de_uso = ObtenerInforme(repositorio_informe)
-    informe = caso_de_uso.ejecutar(informe_id)
+    informe = caso_de_uso.ejecutar(informe_id, usuario_id)
     return InformeRespuestaEsquema.model_validate(informe)
 
 
@@ -79,9 +80,10 @@ def obtener_informe(
 def guardar_informe(
     informe_id: str,
     repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> InformeRespuestaEsquema:
     caso_de_uso = GuardarInforme(repositorio_informe)
-    informe = caso_de_uso.ejecutar(informe_id)
+    informe = caso_de_uso.ejecutar(informe_id, usuario_id)
     return InformeRespuestaEsquema.model_validate(informe)
 
 
@@ -93,6 +95,7 @@ def guardar_informe(
 def eliminar_informe(
     informe_id: str,
     repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> None:
     caso_de_uso = EliminarInforme(repositorio_informe)
-    caso_de_uso.ejecutar(informe_id)
+    caso_de_uso.ejecutar(informe_id, usuario_id)

@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr
 class UsuarioRegistroEsquema(BaseModel):
     nombre: str
     email: EmailStr
+    password: str
 
 
 class UsuarioRespuestaEsquema(BaseModel):

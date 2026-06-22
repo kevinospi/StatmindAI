@@ -78,9 +78,10 @@ def listar_conversaciones_por_informe(
 def obtener_conversacion(
     conversacion_id: str,
     repositorio_conversacion: RepositorioConversacion = Depends(obtener_repositorio_conversacion),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> ConversacionRespuestaEsquema:
     caso_de_uso = ObtenerConversacion(repositorio_conversacion)
-    conversacion = caso_de_uso.ejecutar(conversacion_id)
+    conversacion = caso_de_uso.ejecutar(conversacion_id, usuario_id)
     return ConversacionRespuestaEsquema.model_validate(conversacion)
 
 
@@ -92,6 +93,7 @@ def obtener_conversacion(
 def eliminar_conversacion(
     conversacion_id: str,
     repositorio_conversacion: RepositorioConversacion = Depends(obtener_repositorio_conversacion),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> None:
     caso_de_uso = EliminarConversacion(repositorio_conversacion)
-    caso_de_uso.ejecutar(conversacion_id)
+    caso_de_uso.ejecutar(conversacion_id, usuario_id)

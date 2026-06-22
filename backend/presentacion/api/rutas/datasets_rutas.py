@@ -65,9 +65,10 @@ def listar_datasets(
 def obtener_dataset(
     dataset_id: str,
     repositorio_dataset: RepositorioDataset = Depends(obtener_repositorio_dataset),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> DatasetRespuestaEsquema:
     caso_de_uso = ObtenerDataset(repositorio_dataset)
-    dataset = caso_de_uso.ejecutar(dataset_id)
+    dataset = caso_de_uso.ejecutar(dataset_id, usuario_id)
     return DatasetRespuestaEsquema.model_validate(dataset)
 
 
@@ -79,6 +80,7 @@ def obtener_dataset(
 def eliminar_dataset(
     dataset_id: str,
     repositorio_dataset: RepositorioDataset = Depends(obtener_repositorio_dataset),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> None:
     caso_de_uso = EliminarDataset(repositorio_dataset)
-    caso_de_uso.ejecutar(dataset_id)
+    caso_de_uso.ejecutar(dataset_id, usuario_id)

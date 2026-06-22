@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from infraestructura.configuracion.settings import obtener_settings
+from presentacion.api.rutas.auth_rutas import router as auth_router
 from presentacion.api.rutas.usuarios_rutas import router as usuarios_router
 from presentacion.api.rutas.datasets_rutas import router as datasets_router
 from presentacion.api.rutas.informes_rutas import router as informes_router
@@ -27,6 +28,7 @@ app.add_middleware(
 
 registrar_manejadores_excepciones(app)
 
+app.include_router(auth_router, prefix="/api/v1")
 app.include_router(usuarios_router, prefix="/api/v1")
 app.include_router(datasets_router, prefix="/api/v1")
 app.include_router(informes_router, prefix="/api/v1")

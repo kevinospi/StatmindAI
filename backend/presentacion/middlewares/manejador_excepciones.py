@@ -2,8 +2,10 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from aplicacion.excepciones import (
+    AccesoDenegadoError,
     ArchivoVacioError,
     ConversacionNoEncontradaError,
+    CredencialesInvalidasError,
     DatasetNoEncontradoError,
     EmailYaRegistradoError,
     ErrorAplicacion,
@@ -22,6 +24,8 @@ _MAPA_CODIGOS_HTTP: dict[type[ErrorAplicacion], int] = {
     ConversacionNoEncontradaError: 404,
     MensajeNoEncontradoError: 404,
     EmailYaRegistradoError: 409,
+    CredencialesInvalidasError: 401,
+    AccesoDenegadoError: 403,
     TipoConversacionInvalidoError: 422,
     ExtensionNoSoportadaError: 422,
     ArchivoVacioError: 422,

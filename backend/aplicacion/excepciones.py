@@ -10,6 +10,10 @@ class EmailYaRegistradoError(ErrorAplicacion):
     pass
 
 
+class CredencialesInvalidasError(ErrorAplicacion):
+    pass
+
+
 class DatasetNoEncontradoError(ErrorAplicacion):
     pass
 
@@ -39,4 +43,8 @@ class ArchivoVacioError(ErrorAplicacion):
 
 
 class TamañoArchivoExcedidoError(ErrorAplicacion):
+    pass
+
+
+class AccesoDenegadoError(ErrorAplicacion):
     pass
