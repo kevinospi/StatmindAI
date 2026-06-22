@@ -52,3 +52,7 @@ class AccesoDenegadoError(ErrorAplicacion):
 
 class ErrorAnalisisDataset(ErrorAplicacion):
     pass
+
+
+class InformeSinAnalisisError(ErrorAplicacion):
+    pass

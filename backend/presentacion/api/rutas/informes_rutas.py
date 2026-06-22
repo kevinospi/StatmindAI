@@ -5,8 +5,13 @@ from aplicacion.casos_de_uso.informes.obtener_informe import ObtenerInforme
 from aplicacion.casos_de_uso.informes.guardar_informe import GuardarInforme
 from aplicacion.casos_de_uso.informes.eliminar_informe import EliminarInforme
 from aplicacion.casos_de_uso.informes.listar_informes_guardados import ListarInformesGuardados
+from aplicacion.casos_de_uso.informes.interpretar_informe import InterpretarInforme
 from infraestructura.base_de_datos.repositorios.repositorio_informe import RepositorioInforme
-from presentacion.api.dependencias.dependencias_db import obtener_repositorio_informe
+from infraestructura.ia.interfaz_interpretador import InterpretadorInforme
+from presentacion.api.dependencias.dependencias_db import (
+    obtener_interpretador_informe,
+    obtener_repositorio_informe,
+)
 from presentacion.api.dependencias.dependencias_usuario import obtener_usuario_actual_id
 from presentacion.esquemas.informes.informe_esquema import (
     InformeCreacionEsquema,
@@ -83,6 +88,22 @@ def guardar_informe(
     usuario_id: str = Depends(obtener_usuario_actual_id),
 ) -> InformeRespuestaEsquema:
     caso_de_uso = GuardarInforme(repositorio_informe)
+    informe = caso_de_uso.ejecutar(informe_id, usuario_id)
+    return InformeRespuestaEsquema.model_validate(informe)
+
+
+@router.post(
+    "/informes/{informe_id}/interpretar",
+    response_model=InformeRespuestaEsquema,
+    tags=["Informes"],
+)
+def interpretar_informe(
+    informe_id: str,
+    repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    interpretador_informe: InterpretadorInforme = Depends(obtener_interpretador_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
+) -> InformeRespuestaEsquema:
+    caso_de_uso = InterpretarInforme(repositorio_informe, interpretador_informe)
     informe = caso_de_uso.ejecutar(informe_id, usuario_id)
     return InformeRespuestaEsquema.model_validate(informe)
 
