@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     google_client_id: str | None = None
     google_client_secret: str | None = None
 
+    openai_api_key: str | None = None
+    openai_model: str = "gpt-4o-mini"
+
     cors_origins: str = "http://localhost:3000"
 
     model_config = SettingsConfigDict(

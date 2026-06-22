@@ -60,3 +60,7 @@ class InformeSinAnalisisError(ErrorAplicacion):
 
 class ConversacionSinInformeError(ErrorAplicacion):
     pass
+
+
+class ErrorProveedorIA(ErrorAplicacion):
+    pass

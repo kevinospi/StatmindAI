@@ -5,11 +5,13 @@ from aplicacion.excepciones import (
     AccesoDenegadoError,
     ArchivoVacioError,
     ConversacionNoEncontradaError,
+    ConversacionSinInformeError,
     CredencialesInvalidasError,
     DatasetNoEncontradoError,
     EmailYaRegistradoError,
     ErrorAnalisisDataset,
     ErrorAplicacion,
+    ErrorProveedorIA,
     ExtensionNoSoportadaError,
     InformeNoEncontradoError,
     InformeSinAnalisisError,
@@ -34,6 +36,8 @@ _MAPA_CODIGOS_HTTP: dict[type[ErrorAplicacion], int] = {
     TamañoArchivoExcedidoError: 422,
     ErrorAnalisisDataset: 422,
     InformeSinAnalisisError: 422,
+    ConversacionSinInformeError: 422,
+    ErrorProveedorIA: 503,
 }
 
 
