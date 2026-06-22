@@ -56,3 +56,7 @@ class ErrorAnalisisDataset(ErrorAplicacion):
 
 class InformeSinAnalisisError(ErrorAplicacion):
     pass
+
+
+class ConversacionSinInformeError(ErrorAplicacion):
+    pass
