@@ -22,16 +22,12 @@ export function SelectorModo() {
   };
 
   return (
-    <div className="flex h-[60vh] w-full max-w-5xl gap-4">
+    <div className="flex w-full flex-1 flex-col md:flex-row">
       {MODOS.map((modo) => (
         <TarjetaModo
           key={modo.id}
           modo={modo}
           estaEnHover={modoEnHover === modo.id && modoSeleccionado === null}
-          estaExpandiendo={modoSeleccionado === modo.id}
-          estaDesapareciendo={
-            modoSeleccionado !== null && modoSeleccionado !== modo.id
-          }
           alIniciarHover={() => setModoEnHover(modo.id)}
           alFinalizarHover={() => setModoEnHover(null)}
           alSeleccionar={() => manejarSeleccion(modo.id, modo.ruta)}

@@ -5,6 +5,7 @@ export interface DefinicionModo {
   titulo: string;
   descripcion: string;
   ruta: string;
-  icono: string;
   colorAcento: "amarillo" | "cian";
+  degradadoDesde: string;
+  degradadoHasta: string;
 }
