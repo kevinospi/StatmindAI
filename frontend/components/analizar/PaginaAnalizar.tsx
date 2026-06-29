@@ -5,10 +5,10 @@ import { EncabezadoApp } from "@/components/compartidos/EncabezadoApp";
 import { ZonaCargaArchivo } from "./ZonaCargaArchivo";
 import { TarjetaArchivoSeleccionado } from "./TarjetaArchivoSeleccionado";
 import { PantallaCargaAnalisis } from "./PantallaCargaAnalisis";
-import { VistaResultadoAnalisis } from "./VistaResultadoAnalisis";
 import { MensajeErrorAnalisis } from "./MensajeErrorAnalisis";
+import { VistaInforme } from "@/components/informes/VistaInforme";
 import { ArchivoSeleccionado, EstadoAnalisis } from "@/tipos/analisis";
-import { DatasetRespuesta, InformeRespuesta } from "@/tipos/api";
+import { InformeDetalleRespuesta } from "@/tipos/api";
 import {
   analizarDataset,
   obtenerDataset,
@@ -43,11 +43,8 @@ export function PaginaAnalizar() {
   const [estado, setEstado] = useState<EstadoAnalisis>("idle");
   const [archivoNativo, setArchivoNativo] = useState<File | null>(null);
   const [archivo, setArchivo] = useState<ArchivoSeleccionado | null>(null);
-  const [datasetCreado, setDatasetCreado] = useState<DatasetRespuesta | null>(
-    null,
-  );
   const [informeResultado, setInformeResultado] =
-    useState<InformeRespuesta | null>(null);
+    useState<InformeDetalleRespuesta | null>(null);
   const [mensajeError, setMensajeError] = useState<string | null>(null);
 
   const manejarSeleccionArchivo = (archivoSeleccionado: File) => {
@@ -77,9 +74,7 @@ export function PaginaAnalizar() {
     try {
       const dataset = await subirDataset(archivoNativo);
       const informe = await analizarDataset(dataset.id);
-      const datasetActualizado = await obtenerDataset(dataset.id);
 
-      setDatasetCreado(datasetActualizado);
       setInformeResultado(informe);
       setEstado("result");
     } catch (error) {
@@ -91,7 +86,6 @@ export function PaginaAnalizar() {
   const manejarReiniciar = () => {
     setArchivoNativo(null);
     setArchivo(null);
-    setDatasetCreado(null);
     setInformeResultado(null);
     setMensajeError(null);
     setEstado("idle");
@@ -138,10 +132,10 @@ export function PaginaAnalizar() {
 
           {estado === "loading" && <PantallaCargaAnalisis />}
 
-          {estado === "result" && datasetCreado && informeResultado && (
-            <VistaResultadoAnalisis
-              dataset={datasetCreado}
+          {estado === "result" && informeResultado && (
+            <VistaInforme
               informe={informeResultado}
+              alActualizarInforme={setInformeResultado}
               alAnalizarOtro={manejarReiniciar}
             />
           )}

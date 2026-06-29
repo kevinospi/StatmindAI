@@ -12,7 +12,12 @@ export function EncabezadoApp({ accionesDerecha }: PropiedadesEncabezadoApp) {
 
   return (
     <header className="flex w-full items-center justify-between border-b border-white/10 px-6 py-4 md:px-10">
-      <div className="relative h-auto w-[140px]">
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="relative h-auto w-[140px]"
+        aria-label="Ir al inicio"
+      >
         <Image
           src="/logo_claridata.png"
           alt="Claridata"
@@ -20,9 +25,17 @@ export function EncabezadoApp({ accionesDerecha }: PropiedadesEncabezadoApp) {
           height={300}
           className="h-auto w-full"
         />
-      </div>
+      </button>
 
       <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => router.push("/informes")}
+          className="rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-claridata-textoSecundario transition-colors duration-300 hover:border-white/30 hover:text-claridata-texto"
+        >
+          Mis informes
+        </button>
+
         {accionesDerecha}
 
         <button

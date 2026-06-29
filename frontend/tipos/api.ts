@@ -45,10 +45,11 @@ export interface EstadisticasDescriptivas {
   columnas: EstadisticasColumnaNumerica[];
 }
 
-export interface InformeRespuesta {
+export interface InformeDetalleRespuesta {
   id: string;
   usuario_id: string;
   dataset_id: string;
+  titulo: string;
   guardado: boolean;
   resumen_ejecutivo: string | null;
   estadisticas_descriptivas: EstadisticasDescriptivas | null;
@@ -58,6 +59,14 @@ export interface InformeRespuesta {
   hallazgos_principales: Record<string, unknown> | null;
   recomendaciones: Record<string, unknown> | null;
   conclusiones: string | null;
+  fecha_creacion: string;
+  fecha_actualizacion: string;
+}
+
+export interface InformeResumenRespuesta {
+  id: string;
+  titulo: string;
+  dataset_id: string;
   fecha_creacion: string;
   fecha_actualizacion: string;
 }
