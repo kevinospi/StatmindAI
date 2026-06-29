@@ -27,6 +27,8 @@ class InformeModelo(AuditoriaMixin, Base):
         index=True,
     )
 
+    titulo: Mapped[str] = mapped_column(String(150), nullable=False)
+
     guardado: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
     resumen_ejecutivo: Mapped[str | None] = mapped_column(Text, nullable=True)

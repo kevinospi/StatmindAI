@@ -10,6 +10,7 @@ class CrearInforme:
         self,
         usuario_id: str,
         dataset_id: str,
+        titulo: str = "Informe sin título",
         resumen_ejecutivo: str | None = None,
         estadisticas_descriptivas: dict | None = None,
         analisis_distribucion: dict | None = None,
@@ -22,6 +23,7 @@ class CrearInforme:
         nuevo_informe = InformeModelo(
             usuario_id=usuario_id,
             dataset_id=dataset_id,
+            titulo=titulo,
             guardado=False,
             resumen_ejecutivo=resumen_ejecutivo,
             estadisticas_descriptivas=estadisticas_descriptivas,

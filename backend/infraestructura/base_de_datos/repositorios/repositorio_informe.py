@@ -24,3 +24,11 @@ class RepositorioInforme(RepositorioBase[InformeModelo]):
             )
             .all()
         )
+
+    def listar_por_usuario_ordenado(self, usuario_id: str) -> list[InformeModelo]:
+        return list(
+            self._sesion.query(InformeModelo)
+            .filter(InformeModelo.usuario_id == usuario_id)
+            .order_by(InformeModelo.fecha_creacion.desc())
+            .all()
+        )

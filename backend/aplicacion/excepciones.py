@@ -64,3 +64,7 @@ class ConversacionSinInformeError(ErrorAplicacion):
 
 class ErrorProveedorIA(ErrorAplicacion):
     pass
+
+
+class TituloInvalidoError(ErrorAplicacion):
+    pass

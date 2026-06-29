@@ -61,7 +61,7 @@ class AnalizarDataset:
             self._repositorio_informe.guardar_cambios()
             return informe_existente
 
-        nuevo_informe = self._construir_informe(dataset_id, usuario_id, resultado)
+        nuevo_informe = self._construir_informe(dataset, usuario_id, resultado)
         self._repositorio_informe.crear(nuevo_informe)
         self._repositorio_informe.guardar_cambios()
         return nuevo_informe
@@ -78,13 +78,14 @@ class AnalizarDataset:
 
     def _construir_informe(
         self,
-        dataset_id: str,
+        dataset,
         usuario_id: str,
         resultado: ResultadoMotorEstadistico,
     ) -> InformeModelo:
         informe = InformeModelo(
             usuario_id=usuario_id,
-            dataset_id=dataset_id,
+            dataset_id=dataset.id,
+            titulo=dataset.nombre_archivo,
             guardado=False,
         )
         self._actualizar_informe(informe, resultado)

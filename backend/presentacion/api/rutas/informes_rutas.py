@@ -5,6 +5,8 @@ from aplicacion.casos_de_uso.informes.obtener_informe import ObtenerInforme
 from aplicacion.casos_de_uso.informes.guardar_informe import GuardarInforme
 from aplicacion.casos_de_uso.informes.eliminar_informe import EliminarInforme
 from aplicacion.casos_de_uso.informes.listar_informes_guardados import ListarInformesGuardados
+from aplicacion.casos_de_uso.informes.listar_informes_usuario import ListarInformesUsuario
+from aplicacion.casos_de_uso.informes.renombrar_informe import RenombrarInforme
 from aplicacion.casos_de_uso.informes.interpretar_informe import InterpretarInforme
 from infraestructura.base_de_datos.repositorios.repositorio_informe import RepositorioInforme
 from infraestructura.ia.interfaz_interpretador import InterpretadorInforme
@@ -15,7 +17,9 @@ from presentacion.api.dependencias.dependencias_db import (
 from presentacion.api.dependencias.dependencias_usuario import obtener_usuario_actual_id
 from presentacion.esquemas.informes.informe_esquema import (
     InformeCreacionEsquema,
+    InformeRenombrarEsquema,
     InformeRespuestaEsquema,
+    InformeResumenEsquema,
 )
 
 router = APIRouter()
@@ -49,6 +53,20 @@ def crear_informe(
 
 
 @router.get(
+    "/informes",
+    response_model=list[InformeResumenEsquema],
+    tags=["Informes"],
+)
+def listar_informes(
+    repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
+) -> list[InformeResumenEsquema]:
+    caso_de_uso = ListarInformesUsuario(repositorio_informe)
+    informes = caso_de_uso.ejecutar(usuario_id)
+    return [InformeResumenEsquema.model_validate(i) for i in informes]
+
+
+@router.get(
     "/informes/guardados",
     response_model=list[InformeRespuestaEsquema],
     tags=["Informes"],
@@ -74,6 +92,22 @@ def obtener_informe(
 ) -> InformeRespuestaEsquema:
     caso_de_uso = ObtenerInforme(repositorio_informe)
     informe = caso_de_uso.ejecutar(informe_id, usuario_id)
+    return InformeRespuestaEsquema.model_validate(informe)
+
+
+@router.patch(
+    "/informes/{informe_id}",
+    response_model=InformeRespuestaEsquema,
+    tags=["Informes"],
+)
+def renombrar_informe(
+    informe_id: str,
+    datos: InformeRenombrarEsquema,
+    repositorio_informe: RepositorioInforme = Depends(obtener_repositorio_informe),
+    usuario_id: str = Depends(obtener_usuario_actual_id),
+) -> InformeRespuestaEsquema:
+    caso_de_uso = RenombrarInforme(repositorio_informe)
+    informe = caso_de_uso.ejecutar(informe_id, usuario_id, datos.titulo)
     return InformeRespuestaEsquema.model_validate(informe)
 
 

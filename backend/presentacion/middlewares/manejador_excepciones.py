@@ -18,6 +18,7 @@ from aplicacion.excepciones import (
     MensajeNoEncontradoError,
     TamañoArchivoExcedidoError,
     TipoConversacionInvalidoError,
+    TituloInvalidoError,
     UsuarioNoEncontradoError,
 )
 
@@ -37,6 +38,7 @@ _MAPA_CODIGOS_HTTP: dict[type[ErrorAplicacion], int] = {
     ErrorAnalisisDataset: 422,
     InformeSinAnalisisError: 422,
     ConversacionSinInformeError: 422,
+    TituloInvalidoError: 422,
     ErrorProveedorIA: 503,
 }
 
